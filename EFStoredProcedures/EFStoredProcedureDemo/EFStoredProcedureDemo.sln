@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.15
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFStoredProcedureDemo", "EFStoredProcedureDemo\EFStoredProcedureDemo.csproj", "{49A92572-6496-4A0F-A37E-BFE95052BC2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{72AC7E01-EE20-4948-BD33-B8DD5512EDC0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{49A92572-6496-4A0F-A37E-BFE95052BC2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49A92572-6496-4A0F-A37E-BFE95052BC2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49A92572-6496-4A0F-A37E-BFE95052BC2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49A92572-6496-4A0F-A37E-BFE95052BC2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72AC7E01-EE20-4948-BD33-B8DD5512EDC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72AC7E01-EE20-4948-BD33-B8DD5512EDC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72AC7E01-EE20-4948-BD33-B8DD5512EDC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72AC7E01-EE20-4948-BD33-B8DD5512EDC0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
