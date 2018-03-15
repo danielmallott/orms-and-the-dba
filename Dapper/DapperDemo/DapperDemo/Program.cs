@@ -15,7 +15,8 @@ namespace DapperDemo
         {
             using (var sqlConnection = new SqlConnection("Server=localhost;Database=WideWorldImporters;Trusted_Connection=true"))
             {
-                var cities = sqlConnection.Query<City>("dbo.SearchCities", new { cityName = "Abbeville" }, commandType: System.Data.CommandType.StoredProcedure);
+                var cities = sqlConnection.Query<City>("dbo.SearchCities", new { cityName = "Abbeville" },
+                    commandType: System.Data.CommandType.StoredProcedure);
 
                 Console.WriteLine($"{cities.Count()} cities retrieved.");
 

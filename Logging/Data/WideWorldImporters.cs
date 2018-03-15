@@ -1,15 +1,16 @@
+using System;
+using System.Data.Entity;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+
 namespace Data
 {
-    using System;
-    using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-
     public partial class WideWorldImporters : DbContext
     {
         public WideWorldImporters()
             : base("name=WideWorldImporters")
         {
+            Database.SetInitializer<WideWorldImporters>(null);
         }
 
         public virtual DbSet<Customer> Customers { get; set; }
