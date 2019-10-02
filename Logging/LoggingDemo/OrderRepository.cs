@@ -38,7 +38,7 @@ namespace LoggingDemo
 
             using (var context = new WideWorldImporters())
             {
-                context.Database.Log = message => Log.Debug(message);
+                //context.Database.Log = message => Log.Debug(message);
 
                 var query = context.Orders.Take(100);
 

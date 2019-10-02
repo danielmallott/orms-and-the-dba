@@ -2,6 +2,7 @@
 using System.Linq;
 using LoggingDemo.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
@@ -22,7 +23,22 @@ namespace LoggingDemo.NETCore
 
             ServiceProvider = new ServiceCollection()
                 .AddLogging()
-                .AddDbContext<WideWorldImportersContext>(optionsAction => optionsAction.UseSqlServer(@"Server=localhost;Database=WideWorldImporters;Trusted_Connection=true"))
+                .AddDbContext<WideWorldImportersContext>(optionsAction =>
+                {
+                    optionsAction.UseSqlServer(@"data source=10.211.55.2;initial catalog=WideWorldImporters;User Id=sa;Password=sJm4!marjm;MultipleActiveResultSets=True;App=EntityFramework", sqlServerOptions => {
+                        sqlServerOptions.CommandTimeout(60);
+                    });
+                    optionsAction.ConfigureWarnings(warningsAction =>
+                    {
+                        warningsAction.Default(WarningBehavior.Log);
+                        warningsAction.Ignore(RelationalEventId.BoolWithDefaultWarning);
+                        warningsAction.Log(SqlServerEventId.DecimalTypeDefaultWarning);
+                    });
+                    optionsAction.EnableDetailedErrors();
+                    optionsAction.UseLazyLoadingProxies();
+                    optionsAction.EnableSensitiveDataLogging();
+                    optionsAction.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                })
                 .BuildServiceProvider();
 
             ServiceProvider.GetService<ILoggerFactory>()

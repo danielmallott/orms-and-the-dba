@@ -2,6 +2,7 @@ using System;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using Serilog;
 
 namespace Data
 {
@@ -11,6 +12,7 @@ namespace Data
             : base("name=WideWorldImporters")
         {
             Database.SetInitializer<WideWorldImporters>(null);
+            Database.Log = message => Log.Debug(message);
         }
 
         public virtual DbSet<Customer> Customers { get; set; }

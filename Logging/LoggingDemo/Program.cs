@@ -19,7 +19,7 @@ namespace LoggingDemo
 
             var orderRepository = new OrderRepository();
 
-            var orders = orderRepository.GetOrders();
+            //var orders = orderRepository.GetOrders();
 
             var serilogOrders = orderRepository.GetOrdersWithSerilog();
 

@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace LoggingDemo.Data
@@ -115,7 +113,7 @@ namespace LoggingDemo.Data
             modelBuilder.Entity<ColdRoomTemperatures>(entity =>
             {
                 entity.HasKey(e => e.ColdRoomTemperatureId)
-                    .ForSqlServerIsClustered(false);
+                    .IsClustered(false);
 
                 entity.ToTable("ColdRoomTemperatures", "Warehouse");
 
@@ -383,13 +381,13 @@ namespace LoggingDemo.Data
             modelBuilder.Entity<CustomerTransactions>(entity =>
             {
                 entity.HasKey(e => e.CustomerTransactionId)
-                    .ForSqlServerIsClustered(false);
+                    .IsClustered(false);
 
                 entity.ToTable("CustomerTransactions", "Sales");
 
                 entity.HasIndex(e => e.TransactionDate)
                     .HasName("CX_Sales_CustomerTransactions")
-                    .ForSqlServerIsClustered();
+                    .IsClustered();
 
                 entity.HasIndex(e => new { e.TransactionDate, e.CustomerId })
                     .HasName("FK_Sales_CustomerTransactions_CustomerID");
@@ -1337,7 +1335,7 @@ namespace LoggingDemo.Data
             modelBuilder.Entity<StockItemTransactions>(entity =>
             {
                 entity.HasKey(e => e.StockItemTransactionId)
-                    .ForSqlServerIsClustered(false);
+                    .IsClustered(false);
 
                 entity.ToTable("StockItemTransactions", "Warehouse");
 
@@ -1584,13 +1582,13 @@ namespace LoggingDemo.Data
             modelBuilder.Entity<SupplierTransactions>(entity =>
             {
                 entity.HasKey(e => e.SupplierTransactionId)
-                    .ForSqlServerIsClustered(false);
+                    .IsClustered(false);
 
                 entity.ToTable("SupplierTransactions", "Purchasing");
 
                 entity.HasIndex(e => e.TransactionDate)
                     .HasName("CX_Purchasing_SupplierTransactions")
-                    .ForSqlServerIsClustered();
+                    .IsClustered();
 
                 entity.HasIndex(e => new { e.TransactionDate, e.IsFinalized })
                     .HasName("IX_Purchasing_SupplierTransactions_IsFinalized");
@@ -1749,7 +1747,7 @@ namespace LoggingDemo.Data
             modelBuilder.Entity<VehicleTemperatures>(entity =>
             {
                 entity.HasKey(e => e.VehicleTemperatureId)
-                    .ForSqlServerIsClustered(false);
+                    .IsClustered(false);
 
                 entity.ToTable("VehicleTemperatures", "Warehouse");
 
