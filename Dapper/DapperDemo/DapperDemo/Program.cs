@@ -13,7 +13,7 @@ namespace DapperDemo
     {
         static void Main(string[] args)
         {
-            using (var sqlConnection = new SqlConnection("Server=localhost;Database=WideWorldImporters;Trusted_Connection=true"))
+            using (var sqlConnection = new SqlConnection("Server=localhost;Database=WideWorldImporters;User Id=ormsuser;Password=Password123!"))
             {
                 var cities = sqlConnection.Query<City>("dbo.SearchCities", new { cityName = "Abbeville" },
                     commandType: System.Data.CommandType.StoredProcedure);

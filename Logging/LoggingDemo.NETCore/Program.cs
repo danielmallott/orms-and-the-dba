@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
 
 namespace LoggingDemo.NETCore
@@ -17,6 +18,8 @@ namespace LoggingDemo.NETCore
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .Enrich.FromLogContext()
                 .WriteTo.Console(theme: SystemConsoleTheme.Literate)
                 .CreateLogger();
@@ -25,18 +28,19 @@ namespace LoggingDemo.NETCore
                 .AddLogging()
                 .AddDbContext<WideWorldImportersContext>(optionsAction =>
                 {
-                    optionsAction.UseSqlServer(@"data source=10.211.55.2;initial catalog=WideWorldImporters;User Id=sa;Password=sJm4!marjm;MultipleActiveResultSets=True;App=EntityFramework", sqlServerOptions => {
+                    optionsAction.UseSqlServer(@"data source=localhost;initial catalog=WideWorldImporters;User Id=ormsuser;Password=Password123!;MultipleActiveResultSets=True;App=EntityFramework", sqlServerOptions => {
                         sqlServerOptions.CommandTimeout(60);
                     });
                     optionsAction.ConfigureWarnings(warningsAction =>
                     {
                         warningsAction.Default(WarningBehavior.Log);
                         warningsAction.Ignore(RelationalEventId.BoolWithDefaultWarning);
-                        warningsAction.Log(SqlServerEventId.DecimalTypeDefaultWarning);
+                        warningsAction.Ignore(SqlServerEventId.DecimalTypeDefaultWarning);
                     });
                     optionsAction.EnableDetailedErrors();
-                    optionsAction.UseLazyLoadingProxies();
+                    // WARNING: DO NOT DO THIS IN PRODUCTION
                     optionsAction.EnableSensitiveDataLogging();
+                    // Warning: the following line automatically makes all queries use No Tracking, so entities cannot be later saved
                     optionsAction.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
                 })
                 .BuildServiceProvider();
@@ -44,9 +48,11 @@ namespace LoggingDemo.NETCore
             ServiceProvider.GetService<ILoggerFactory>()
                 .AddSerilog();
 
-            var context = ServiceProvider.GetService<WideWorldImportersContext>();
-            var query = context.Orders.Take(100);
-            var results = query.ToList();
+            using (var context = ServiceProvider.GetService<WideWorldImportersContext>())
+            {
+                var query = context.Orders.Take(100);
+                var results = query.ToList();
+            }
 
             Console.Read();
         }
