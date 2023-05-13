@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.SqlClient;
 using Dapper;
 using Dapper.Contrib.Extensions;
 
@@ -13,7 +8,7 @@ namespace DapperDemo
     {
         static void Main(string[] args)
         {
-            using (var sqlConnection = new SqlConnection("Server=localhost;Database=WideWorldImporters;User Id=ormsuser;Password=Password123!"))
+            using (var sqlConnection = new SqlConnection("Server=localhost;Database=WideWorldImporters;User Id=sa;Password=Password12!;TrustServerCertificate=true"))
             {
                 var cities = sqlConnection.Query<City>("dbo.SearchCities", new { cityName = "Abbeville" },
                     commandType: System.Data.CommandType.StoredProcedure);
